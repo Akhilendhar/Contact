@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Create {
-	public static final Map<ArrayList<Integer>, Contactdetails> mapobj = new LinkedHashMap<>();
-	public static ArrayList<Integer> arrayobj;
+	public static final Map<ArrayList<Integer>, Contactdetails> contactobject = new LinkedHashMap<>();
+	public static ArrayList<Integer> keyobject;
 
 	public static String checkEmail(String email) {
 		String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -27,7 +27,7 @@ public class Create {
 	}
 
 	public static void create() {
-		Integer id = null;
+		Integer empid = null;
 		int option = 0;
 		Scanner sc = new Scanner(System.in);
 		while (true) {
@@ -35,7 +35,7 @@ public class Create {
 			do {
 				try {
 					System.out.println("enter emp id");
-					id = sc.nextInt();
+					empid = sc.nextInt();
 					check = false;
 				} catch (Exception e) {
 					System.out.println("enter the valid data");
@@ -44,17 +44,17 @@ public class Create {
 				}
 			} while (check);
 			System.out.println("enter the name");
-			String name = sc.nextLine();
-			name = sc.nextLine();
+			String empname = sc.nextLine();
+			empname = sc.nextLine();
 			System.out.println("enter the email");
-			String email = sc.next();
-			email = checkEmail(email);
+			String empemail = sc.next();
+			empemail = checkEmail(empemail);
 			boolean check1 = true;
-			long phonenumber = 0;
+			long empphonenumber = 0;
 			do {
 				try {
 					System.out.println("enter the phonenumber");
-					phonenumber = sc.nextLong();
+					empphonenumber = sc.nextLong();
 					check1 = false;
 				} catch (Exception e) {
 					System.out.println("enter the valid data");
@@ -63,24 +63,24 @@ public class Create {
 				}
 			} while (check1);
 			System.out.println("enter the address");
-			String address = sc.nextLine();
-			address = sc.nextLine();
-			arrayobj = new ArrayList<>();
-			arrayobj.add(id);
-			Contactdetails co = new Contactdetails(name, email, phonenumber, address);
-			mapobj.put(arrayobj, co);
+			String empaddress = sc.nextLine();
+			empaddress = sc.nextLine();
+			keyobject = new ArrayList<>();
+			keyobject.add(empid);
+			Contactdetails co = new Contactdetails(empname, empemail, empphonenumber, empaddress);
+			contactobject.put(keyobject, co);
 			System.out.println("do you want to add more contacts press 1");
 			option = sc.nextInt();
 			if (option != 1) {
 				break;
 			}
 		}
-		for (Entry<ArrayList<Integer>, Contactdetails> o : Create.mapobj.entrySet()) {
-			ArrayList<Integer> key = o.getKey();
-			Contactdetails cn = o.getValue();
+		for (Entry<ArrayList<Integer>, Contactdetails> contactobjiterator : Create.contactobject.entrySet()) {
+			ArrayList<Integer> key = contactobjiterator.getKey();
+			Contactdetails contactprintobj = contactobjiterator.getValue();
 			System.out.println(key.get(0) + "Details");
-			System.out
-					.println(cn.getName() + "---" + cn.getEmail() + "---" + cn.getAddress() + "---" + cn.getPhonenum());
+			System.out.println(contactprintobj.getName() + "---" + contactprintobj.getEmail() + "---"
+					+ contactprintobj.getAddress() + "---" + contactprintobj.getPhonenum());
 		}
 	}
 }

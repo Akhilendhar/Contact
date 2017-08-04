@@ -14,8 +14,9 @@ public class Update {
 		String name1 = null;
 		String email = null;
 		String address = null;
-		boolean checkempty = Create.mapobj.isEmpty();
-		if (checkempty == false) {
+		long phonenumber;
+		boolean checkempty = Create.contactobject.isEmpty();
+		if (!checkempty) {
 			while (true) {
 				System.out.println("which field you wanna update 1. name, 2. email 3. phonenumber 4. address");
 				Scanner sc = new Scanner(System.in);
@@ -24,30 +25,23 @@ public class Update {
 				name = sc.next();
 				System.out.println("enter the value for your field");
 				newValue = sc.next();
-				for (Map.Entry<ArrayList<Integer>, Contactdetails> ob : Create.mapobj.entrySet()) {
-					Contactdetails cn = ob.getValue();
-					ArrayList<Integer> key = ob.getKey();
+				for (Map.Entry<ArrayList<Integer>, Contactdetails> iterateobj : Create.contactobject.entrySet()) {
+					Contactdetails cn = iterateobj.getValue();
+					ArrayList<Integer> key = iterateobj.getKey();
 					if (cn.getName().equals(name)) {
-						/* System.out.println("we r here"); */
-						/*
-						 * String name1; String email; String address;
-						 */
-						if (field == 3)
-							newphonenumber = Long.parseLong(newValue);
-
-						long phonenumber;
-						name1 = ob.getValue().getName();
-						email = ob.getValue().getEmail();
-						phonenumber = ob.getValue().getPhonenum();
-						address = ob.getValue().getAddress();
+						name1 = iterateobj.getValue().getName();
+						email = iterateobj.getValue().getEmail();
+						phonenumber = iterateobj.getValue().getPhonenum();
+						address = iterateobj.getValue().getAddress();
 						if (field == 1) {
-							Create.mapobj.put(key, new Contactdetails(newValue, email, phonenumber, address));
+							Create.contactobject.put(key, new Contactdetails(newValue, email, phonenumber, address));
 						} else if (field == 2) {
-							Create.mapobj.put(key, new Contactdetails(name1, newValue, phonenumber, address));
+							Create.contactobject.put(key, new Contactdetails(name1, newValue, phonenumber, address));
 						} else if (field == 3) {
-							Create.mapobj.put(key, new Contactdetails(name1, email, newphonenumber, address));
+							newphonenumber = Long.parseLong(newValue);
+							Create.contactobject.put(key, new Contactdetails(name1, email, newphonenumber, address));
 						} else if (field == 4) {
-							Create.mapobj.put(key, new Contactdetails(name1, email, phonenumber, newValue));
+							Create.contactobject.put(key, new Contactdetails(name1, email, phonenumber, newValue));
 						} else {
 							System.out.println("sorry wrong details...........");
 
@@ -63,7 +57,7 @@ public class Update {
 				}
 			}
 			System.out.println("after update");
-			for (Map.Entry<ArrayList<Integer>, Contactdetails> o : Create.mapobj.entrySet()) {
+			for (Map.Entry<ArrayList<Integer>, Contactdetails> o : Create.contactobject.entrySet()) {
 				ArrayList<Integer> key = o.getKey();
 				Contactdetails cn = o.getValue();
 				System.out.println(key.get(0) + "Details");
